@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart' as crypto;
@@ -13,6 +12,12 @@ class CharacterScreen extends StatefulWidget {
 
 class _CharacterScreenState extends State<CharacterScreen> {
   List<Map<String, dynamic>> characters = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAllCharacters();
+  }
 
   void fetchAllCharacters() async {
     final publicKey = 'f3b8273d94ceecaa06c3797595dd1392';
@@ -39,7 +44,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
   }
 
   String generateMd5(String data) {
-    var content = new Utf8Encoder().convert(data);
+    var content = Utf8Encoder().convert(data);
     var md5 = crypto.md5;
     var digest = md5.convert(content);
     return hex.encode(digest.bytes);
@@ -59,10 +64,10 @@ class _CharacterScreenState extends State<CharacterScreen> {
               'Character',
               style: TextStyle(fontSize: 24),
             ),
-            ElevatedButton(
-              onPressed: fetchAllCharacters,
-              child: Text('Fetch Characters'),
-            ),
+            // ElevatedButton(
+            //   onPressed: fetchAllCharacters,
+            //   child: Text('Fetch Characters'),
+            // ),
             Expanded(
               child: ListView.builder(
                 itemCount: characters.length,

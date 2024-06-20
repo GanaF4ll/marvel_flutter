@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './screens/home.dart';
 import './screens/character.dart';
 import './screens/comics.dart';
+import './screens/extra.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({required Key key}) : super(key: key);
@@ -14,7 +15,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
   final List<Widget> _screenList = [
     HomeScreen(),
     CharacterScreen(),
-    ComicScreen()
+    ComicScreen(),
+    ExtraScreen(),
   ];
 
   @override
@@ -23,7 +25,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       body: _screenList[_currentScreen],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.amber,
+        selectedItemColor: Colors.red,
         unselectedItemColor: Colors.grey,
         currentIndex: _currentScreen,
         onTap: onTabTapped,
@@ -39,6 +41,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.volcano),
             label: 'Comics',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle),
+            label: 'Extra',
           ),
         ],
       ),
