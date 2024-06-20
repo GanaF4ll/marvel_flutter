@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './screens/home.dart';
 import './screens/character.dart';
+import './screens/comics.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({required Key key}) : super(key: key);
@@ -13,6 +14,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   final List<Widget> _screenList = [
     HomeScreen(),
     CharacterScreen(),
+    ComicScreen()
   ];
 
   @override
@@ -36,6 +38,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.work),
             label: 'Character',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.work),
+            label: 'Comics',
           ),
         ],
       ),
