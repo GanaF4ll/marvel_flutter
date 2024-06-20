@@ -31,20 +31,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// void fetchMarvelCharacters() async {
-//   // Charger les variables d'environnement
-//   final publicKey = dotenv.env['PUBLIC_KEY'];
-
-//   print('Public Key: $publicKey');
-
-//   final timestamp = DateTime.now().millisecondsSinceEpoch;
-// }
-
-// void main() async {
-//   await dotenv.load(fileName: ".env");
-//   runApp(MyApp());
-// }
-
 void fetchMarvelCharacters() async {
   // Charger les variables d'environnement
   // final publicKey = dotenv.env['PUBLIC_KEY'];
@@ -61,10 +47,20 @@ void fetchMarvelCharacters() async {
 
   final response = await http.get(url);
 
-  print(response.body);
+  if (response.statusCode == 200) {
+    // Décoder la réponse JSON
+    final data = jsonDecode(response.body);
+
+    // Accéder au champ results de data
+    final results = data['data']['results'];
+    print('results: $results');
+  } else {
+    print('Failed to load characters');
+  }
+  print('Failed to load characters');
 }
 
-generateMd5(String data) {
+String generateMd5(String data) {
   var content = new Utf8Encoder().convert(data);
   var md5 = crypto.md5;
   var digest = md5.convert(content);
