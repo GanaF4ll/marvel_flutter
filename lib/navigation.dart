@@ -37,7 +37,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             label: 'Character',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.work),
+            icon: Icon(Icons.volcano),
             label: 'Comics',
           ),
         ],
