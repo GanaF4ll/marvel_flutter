@@ -12,6 +12,7 @@ class CharacterScreen extends StatefulWidget {
 
 class _CharacterScreenState extends State<CharacterScreen> {
   List<Map<String, dynamic>> characters = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -37,9 +38,13 @@ class _CharacterScreenState extends State<CharacterScreen> {
       final results = data['data']['results'];
       setState(() {
         characters = List<Map<String, dynamic>>.from(results);
+        isLoading = false;
       });
     } else {
       print('Failed to load characters');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -57,36 +62,35 @@ class _CharacterScreenState extends State<CharacterScreen> {
         title: Text('Accueil'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Character',
-              style: TextStyle(fontSize: 24),
-            ),
-            // ElevatedButton(
-            //   onPressed: fetchAllCharacters,
-            //   child: Text('Fetch Characters'),
-            // ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: characters.length,
-                itemBuilder: (context, index) {
-                  final character = characters[index];
-                  final thumbnail = character['thumbnail'];
-                  final imageUrl =
-                      '${thumbnail['path']}.${thumbnail['extension']}';
-                  return CharacterWidget(
-                    name: character['name'],
-                    description:
-                        character['description'] ?? 'No description available',
-                    imageUrl: imageUrl,
-                  );
-                },
+        child: isLoading
+            ? CircularProgressIndicator(
+                color: const Color.fromARGB(255, 250, 0, 0))
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Character',
+                    style: TextStyle(fontSize: 36),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: characters.length,
+                      itemBuilder: (context, index) {
+                        final character = characters[index];
+                        final thumbnail = character['thumbnail'];
+                        final imageUrl =
+                            '${thumbnail['path']}.${thumbnail['extension']}';
+                        return CharacterWidget(
+                          name: character['name'],
+                          description: character['description'] ??
+                              'No description available',
+                          imageUrl: imageUrl,
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
