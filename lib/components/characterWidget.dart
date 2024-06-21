@@ -34,7 +34,9 @@ class CharacterWidget extends StatelessWidget {
       },
       child: Card(
         color: Colors.grey.shade900,
-        child: Padding(
+        child: Container(
+          // taille max du composant
+          height: 120,
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
@@ -51,6 +53,7 @@ class CharacterWidget extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       children: [
@@ -58,12 +61,12 @@ class CharacterWidget extends StatelessWidget {
                           child: Text(
                             name,
                             style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                        // Icon(Icons.star, color: Colors.yellow),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -75,6 +78,9 @@ class CharacterWidget extends StatelessWidget {
                         fontSize: 16,
                         color: Colors.white,
                       ),
+                      // pour éviter le débordement de texte
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
