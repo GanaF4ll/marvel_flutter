@@ -14,6 +14,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
   List<Map<String, dynamic>> characters = [];
   bool isLoading = true;
   final TextEditingController _searchController = TextEditingController();
+  List<String> suggestions = [];
 
   @override
   void initState() {
@@ -39,6 +40,8 @@ class _CharacterScreenState extends State<CharacterScreen> {
       final results = data['data']['results'];
       setState(() {
         characters = List<Map<String, dynamic>>.from(results);
+        suggestions =
+            characters.map((character) => character['name'] as String).toList();
         isLoading = false;
       });
     } else {
@@ -101,19 +104,45 @@ class _CharacterScreenState extends State<CharacterScreen> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: TextField(
-                            controller: _searchController,
-                            decoration: InputDecoration(
-                              hintText: 'Search Characters',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 10.0),
-                            ),
-                            style: TextStyle(color: Colors.black),
+                          child: Autocomplete<String>(
+                            optionsBuilder:
+                                (TextEditingValue textEditingValue) {
+                              if (textEditingValue.text.isEmpty) {
+                                return const Iterable<String>.empty();
+                              }
+                              return suggestions.where((String option) {
+                                return option.toLowerCase().contains(
+                                    textEditingValue.text.toLowerCase());
+                              });
+                            },
+                            onSelected: (String selection) {
+                              _searchController.text = selection;
+                              setState(() {
+                                isLoading = true;
+                              });
+                              fetchCharactersByName(selection);
+                            },
+                            fieldViewBuilder: (BuildContext context,
+                                TextEditingController
+                                    fieldTextEditingController,
+                                FocusNode fieldFocusNode,
+                                VoidCallback onFieldSubmitted) {
+                              return TextField(
+                                controller: fieldTextEditingController,
+                                focusNode: fieldFocusNode,
+                                decoration: InputDecoration(
+                                  hintText: 'Search Characters',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 10.0),
+                                ),
+                                style: TextStyle(color: Colors.black),
+                              );
+                            },
                           ),
                         ),
                         IconButton(
@@ -131,6 +160,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                             setState(() {
                               isLoading = true;
                             });
+                            _searchController.clear();
                             fetchAllCharacters();
                           },
                         ),
