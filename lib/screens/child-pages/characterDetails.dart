@@ -114,10 +114,15 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                   ),
                   const SizedBox(height: 8),
                   comics.isNotEmpty
-                      ? SizedBox(
-                          height: 150,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
+                      ? Expanded(
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 0.7,
+                            ),
                             itemCount: comics.length,
                             itemBuilder: (context, index) {
                               final comic = comics[index];

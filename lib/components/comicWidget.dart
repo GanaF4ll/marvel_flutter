@@ -14,18 +14,17 @@ class ComicWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Card(
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.network(
-                imageUrl,
-                width: 100,
-                height: 100,
-                fit: BoxFit.fill,
-              ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Image.network(
+              imageUrl,
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.fitHeight,
             ),
-          ],
+          ),
         ),
       ),
     );
