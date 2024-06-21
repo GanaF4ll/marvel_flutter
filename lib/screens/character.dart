@@ -83,7 +83,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                         return CharacterWidget(
                           name: character['name'],
                           description: character['description'] ??
-                              'No description available',
+                              'No description available for ${character['name']}',
                           imageUrl: imageUrl,
                           id: character['id'],
                         );

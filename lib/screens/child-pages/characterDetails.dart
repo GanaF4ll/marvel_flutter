@@ -101,7 +101,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                   Text(
                     widget.description.isNotEmpty
                         ? widget.description
-                        : 'No description available',
+                        : 'No description available for ${widget.name}',
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.white,

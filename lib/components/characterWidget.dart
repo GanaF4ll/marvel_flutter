@@ -70,7 +70,7 @@ class CharacterWidget extends StatelessWidget {
                     Text(
                       description.isNotEmpty
                           ? description
-                          : 'No description available',
+                          : 'No description available for $name',
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,
