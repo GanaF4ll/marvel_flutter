@@ -115,113 +115,119 @@ class _CharacterScreenState extends State<CharacterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Characters'),
-      ),
-      body: Center(
-        child: isLoading
-            ? const CircularProgressIndicator(
-                color: Color.fromARGB(255, 250, 0, 0))
-            : Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Autocomplete<String>(
-                            optionsBuilder:
-                                (TextEditingValue textEditingValue) {
-                              if (textEditingValue.text.isEmpty) {
-                                return const Iterable<String>.empty();
-                              }
-                              if (_debounce?.isActive ?? false)
-                                _debounce?.cancel();
-                              _debounce =
-                                  Timer(const Duration(milliseconds: 100), () {
-                                fetchCharacterSuggestions(
-                                    textEditingValue.text);
-                              });
-                              return suggestions.where((String option) {
-                                return option.toLowerCase().contains(
-                                    textEditingValue.text.toLowerCase());
-                              });
-                            },
-                            onSelected: (String selection) {
-                              _searchController.text = selection;
-                              setState(() {
-                                isLoading = true;
-                              });
-                              fetchCharactersByName(selection);
-                            },
-                            fieldViewBuilder: (BuildContext context,
-                                TextEditingController
-                                    fieldTextEditingController,
-                                FocusNode fieldFocusNode,
-                                VoidCallback onFieldSubmitted) {
-                              _searchController.text =
-                                  fieldTextEditingController.text;
-                              return TextField(
-                                controller: fieldTextEditingController,
-                                focusNode: fieldFocusNode,
-                                decoration: InputDecoration(
-                                  hintText: 'Search Characters',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
+      body: SafeArea(
+        child: Center(
+          child: isLoading
+              ? const CircularProgressIndicator(
+                  color: Color.fromARGB(255, 250, 0, 0))
+              : Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Autocomplete<String>(
+                              optionsBuilder:
+                                  (TextEditingValue textEditingValue) {
+                                if (textEditingValue.text.isEmpty) {
+                                  return const Iterable<String>.empty();
+                                }
+                                if (_debounce?.isActive ?? false)
+                                  _debounce?.cancel();
+                                _debounce = Timer(
+                                    const Duration(milliseconds: 100), () {
+                                  fetchCharacterSuggestions(
+                                      textEditingValue.text);
+                                });
+                                return suggestions.where((String option) {
+                                  return option.toLowerCase().contains(
+                                      textEditingValue.text.toLowerCase());
+                                });
+                              },
+                              onSelected: (String selection) {
+                                _searchController.text = selection;
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                fetchCharactersByName(selection);
+                              },
+                              fieldViewBuilder: (BuildContext context,
+                                  TextEditingController
+                                      fieldTextEditingController,
+                                  FocusNode fieldFocusNode,
+                                  VoidCallback onFieldSubmitted) {
+                                _searchController.text =
+                                    fieldTextEditingController.text;
+                                return TextField(
+                                  controller: fieldTextEditingController,
+                                  focusNode: fieldFocusNode,
+                                  decoration: InputDecoration(
+                                    hintText: 'Search Characters',
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    suffixIcon: IconButton(
+                                      icon: const Icon(Icons.search),
+                                      onPressed: () {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        fetchCharactersByName(
+                                            fieldTextEditingController.text);
+                                      },
+                                    ),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 10.0),
                                   ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  suffixIcon: IconButton(
-                                    icon: const Icon(Icons.search),
-                                    onPressed: () {
-                                      setState(() {
-                                        isLoading = true;
-                                      });
-                                      fetchCharactersByName(
-                                          fieldTextEditingController.text);
-                                    },
-                                  ),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 10.0),
-                                ),
-                                style: TextStyle(color: Colors.black),
-                              );
-                            },
+                                  style: TextStyle(color: Colors.black),
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.close),
-                          onPressed: () {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            _searchController.clear();
-                            fetchAllCharacters();
-                          },
-                        ),
-                      ],
+                          Container(
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 3, 44, 104),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: IconButton(
+                              icon: const Icon(Icons.close),
+                              color: Colors.white,
+                              onPressed: () {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                _searchController.clear();
+                                fetchAllCharacters();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: characters.length,
-                      itemBuilder: (context, index) {
-                        final character = characters[index];
-                        final thumbnail = character['thumbnail'];
-                        final imageUrl =
-                            '${thumbnail['path']}.${thumbnail['extension']}';
-                        return CharacterWidget(
-                          name: character['name'],
-                          description: character['description'] ??
-                              'No description available for ${character['name']}',
-                          imageUrl: imageUrl,
-                          id: character['id'],
-                        );
-                      },
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: characters.length,
+                        itemBuilder: (context, index) {
+                          final character = characters[index];
+                          final thumbnail = character['thumbnail'];
+                          final imageUrl =
+                              '${thumbnail['path']}.${thumbnail['extension']}';
+                          return CharacterWidget(
+                            name: character['name'],
+                            description: character['description'] ??
+                                'No description available for ${character['name']}',
+                            imageUrl: imageUrl,
+                            id: character['id'],
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+        ),
       ),
     );
   }
