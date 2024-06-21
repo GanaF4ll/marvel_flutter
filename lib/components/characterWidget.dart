@@ -27,6 +27,7 @@ class CharacterWidget extends StatelessWidget {
               name: name,
               description: description,
               imageUrl: imageUrl,
+              id: id,
             ),
           ),
         );
