@@ -21,8 +21,8 @@ class _CharacterScreenState extends State<CharacterScreen> {
   }
 
   void fetchAllCharacters() async {
-    final publicKey = 'f3b8273d94ceecaa06c3797595dd1392';
-    final privateKey = '0f6d9c527a7147c280ad07578543cd99b6ebb1b4';
+    const publicKey = 'f3b8273d94ceecaa06c3797595dd1392';
+    const privateKey = '0f6d9c527a7147c280ad07578543cd99b6ebb1b4';
 
     final timestamp = DateTime.now().millisecondsSinceEpoch;
 
@@ -49,7 +49,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
   }
 
   String generateMd5(String data) {
-    var content = Utf8Encoder().convert(data);
+    var content = const Utf8Encoder().convert(data);
     var md5 = crypto.md5;
     var digest = md5.convert(content);
     return hex.encode(digest.bytes);
@@ -59,16 +59,16 @@ class _CharacterScreenState extends State<CharacterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Accueil'),
+        title: const Text('Accueil'),
       ),
       body: Center(
         child: isLoading
-            ? CircularProgressIndicator(
-                color: const Color.fromARGB(255, 250, 0, 0))
+            ? const CircularProgressIndicator(
+                color: Color.fromARGB(255, 250, 0, 0))
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Character',
                     style: TextStyle(fontSize: 36),
                   ),
