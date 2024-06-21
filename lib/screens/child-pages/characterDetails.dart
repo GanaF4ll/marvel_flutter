@@ -102,7 +102,10 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                     widget.description.isNotEmpty
                         ? widget.description
                         : 'No description available',
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -110,6 +113,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 8),

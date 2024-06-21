@@ -33,6 +33,7 @@ class CharacterWidget extends StatelessWidget {
         );
       },
       child: Card(
+        color: Colors.grey.shade900,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -57,9 +58,9 @@ class CharacterWidget extends StatelessWidget {
                           child: Text(
                             name,
                             style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                         ),
                         // Icon(Icons.star, color: Colors.yellow),
@@ -70,7 +71,10 @@ class CharacterWidget extends StatelessWidget {
                       description.isNotEmpty
                           ? description
                           : 'No description available',
-                      style: const TextStyle(fontSize: 16),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
