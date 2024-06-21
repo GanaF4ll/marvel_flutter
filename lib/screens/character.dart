@@ -86,7 +86,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
     final hash = generateMd5('$timestamp$privateKey$publicKey');
 
     final url = Uri.parse(
-        'https://gateway.marvel.com/v1/public/characters?name=$name&limit=100&ts=$timestamp&apikey=$publicKey&hash=$hash');
+        'https://gateway.marvel.com/v1/public/characters?nameStartsWith=$name&limit=100&ts=$timestamp&apikey=$publicKey&hash=$hash');
 
     final response = await http.get(url);
 
@@ -171,6 +171,16 @@ class _CharacterScreenState extends State<CharacterScreen> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(Icons.search),
+                                    onPressed: () {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      fetchCharactersByName(
+                                          fieldTextEditingController.text);
+                                    },
+                                  ),
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 10.0),
                                 ),
@@ -178,15 +188,6 @@ class _CharacterScreenState extends State<CharacterScreen> {
                               );
                             },
                           ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.search),
-                          onPressed: () {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            fetchCharactersByName(_searchController.text);
-                          },
                         ),
                         IconButton(
                           icon: const Icon(Icons.close),
