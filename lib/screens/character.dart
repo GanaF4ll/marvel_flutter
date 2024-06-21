@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart' as crypto;
 import '../components/characterWidget.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart'; // Ensure this import is at the top of your file
 
 class CharacterScreen extends StatefulWidget {
   @override
@@ -13,10 +13,15 @@ class CharacterScreen extends StatefulWidget {
 
 class _CharacterScreenState extends State<CharacterScreen> {
   List<Map<String, dynamic>> characters = [];
+  Future<void> loadEnv() async {
+    await dotenv.load(); // Load environment variables
+  }
 
   void fetchAllCharacters() async {
-    final publicKey = 'f3b8273d94ceecaa06c3797595dd1392';
-    final privateKey = '0f6d9c527a7147c280ad07578543cd99b6ebb1b4';
+    // final publicKey = 'f3b8273d94ceecaa06c3797595dd1392';
+    // final privateKey = '0f6d9c527a7147c280ad07578543cd99b6ebb1b4';
+    final publicKey = dotenv.env['PUBLIC_KEY'];
+    final privateKey = dotenv.env['PRIVATE_KEY'];
 
     final timestamp = DateTime.now().millisecondsSinceEpoch;
 
@@ -36,6 +41,12 @@ class _CharacterScreenState extends State<CharacterScreen> {
     } else {
       print('Failed to load characters');
     }
+  }
+
+  void printPublicKey() {
+    final publicKey =
+        dotenv.env['PUBLIC_KEY']; // Access an environment variable
+    print(publicKey);
   }
 
   String generateMd5(String data) {
