@@ -85,6 +85,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                           description: character['description'] ??
                               'No description available',
                           imageUrl: imageUrl,
+                          id: character['id'],
                         );
                       },
                     ),

@@ -6,12 +6,14 @@ class CharacterWidget extends StatelessWidget {
   final String name;
   final String description;
   final String imageUrl;
+  final int id;
 
   const CharacterWidget({
     super.key,
     required this.name,
     required this.description,
     required this.imageUrl,
+    required this.id,
   });
 
   @override
@@ -38,8 +40,8 @@ class CharacterWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.network(
                   imageUrl,
-                  width: 80,
-                  height: 80,
+                  width: 100,
+                  height: 100,
                   fit: BoxFit.cover,
                 ),
               ),
