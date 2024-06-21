@@ -43,12 +43,6 @@ class _CharacterScreenState extends State<CharacterScreen> {
     }
   }
 
-  void printPublicKey() {
-    final publicKey =
-        dotenv.env['PUBLIC_KEY']; // Access an environment variable
-    print(publicKey);
-  }
-
   String generateMd5(String data) {
     var content = new Utf8Encoder().convert(data);
     var md5 = crypto.md5;
