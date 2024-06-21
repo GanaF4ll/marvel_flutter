@@ -125,6 +125,15 @@ class _CharacterScreenState extends State<CharacterScreen> {
                             fetchCharactersByName(_searchController.text);
                           },
                         ),
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            fetchAllCharacters();
+                          },
+                        ),
                       ],
                     ),
                   ),
