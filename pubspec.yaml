@@ -26,3 +26,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # il faut mettre le .env dans les assets pour pouvoir le lire
+  assets:
+    - .env

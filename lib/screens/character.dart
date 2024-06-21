@@ -5,6 +5,7 @@ import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart' as crypto;
 import '../components/characterWidget.dart';
 import 'dart:async';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class CharacterScreen extends StatefulWidget {
   @override
@@ -25,8 +26,8 @@ class _CharacterScreenState extends State<CharacterScreen> {
   }
 
   void fetchAllCharacters() async {
-    const publicKey = 'f3b8273d94ceecaa06c3797595dd1392';
-    const privateKey = '0f6d9c527a7147c280ad07578543cd99b6ebb1b4';
+    final publicKey = dotenv.env['PUBLIC_KEY'];
+    final privateKey = dotenv.env['PRIVATE_KEY'];
 
     final timestamp = DateTime.now().millisecondsSinceEpoch;
 
@@ -53,8 +54,8 @@ class _CharacterScreenState extends State<CharacterScreen> {
   }
 
   void fetchCharacterSuggestions(String query) async {
-    const publicKey = 'f3b8273d94ceecaa06c3797595dd1392';
-    const privateKey = '0f6d9c527a7147c280ad07578543cd99b6ebb1b4';
+    final publicKey = dotenv.env['PUBLIC_KEY'];
+    final privateKey = dotenv.env['PRIVATE_KEY'];
 
     final timestamp = DateTime.now().millisecondsSinceEpoch;
 
@@ -78,8 +79,8 @@ class _CharacterScreenState extends State<CharacterScreen> {
   }
 
   void fetchCharactersByName(String name) async {
-    const publicKey = 'f3b8273d94ceecaa06c3797595dd1392';
-    const privateKey = '0f6d9c527a7147c280ad07578543cd99b6ebb1b4';
+    final publicKey = dotenv.env['PUBLIC_KEY'];
+    final privateKey = dotenv.env['PRIVATE_KEY'];
 
     final timestamp = DateTime.now().millisecondsSinceEpoch;
 
