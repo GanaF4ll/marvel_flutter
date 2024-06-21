@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart' as crypto;
 import '../components/characterWidget.dart';
+import 'dart:async';
 
 class CharacterScreen extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
   bool isLoading = true;
   final TextEditingController _searchController = TextEditingController();
   List<String> suggestions = [];
+  Timer? _debounce;
 
   @override
   void initState() {
@@ -40,8 +42,6 @@ class _CharacterScreenState extends State<CharacterScreen> {
       final results = data['data']['results'];
       setState(() {
         characters = List<Map<String, dynamic>>.from(results);
-        suggestions =
-            characters.map((character) => character['name'] as String).toList();
         isLoading = false;
       });
     } else {
@@ -49,6 +49,31 @@ class _CharacterScreenState extends State<CharacterScreen> {
       setState(() {
         isLoading = false;
       });
+    }
+  }
+
+  void fetchCharacterSuggestions(String query) async {
+    const publicKey = 'f3b8273d94ceecaa06c3797595dd1392';
+    const privateKey = '0f6d9c527a7147c280ad07578543cd99b6ebb1b4';
+
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+
+    final hash = generateMd5('$timestamp$privateKey$publicKey');
+
+    final url = Uri.parse(
+        'https://gateway.marvel.com/v1/public/characters?nameStartsWith=$query&limit=10&ts=$timestamp&apikey=$publicKey&hash=$hash');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final results = data['data']['results'];
+      setState(() {
+        suggestions = List<String>.from(
+            results.map((character) => character['name'] as String));
+      });
+    } else {
+      print('Failed to load character suggestions');
     }
   }
 
@@ -110,6 +135,13 @@ class _CharacterScreenState extends State<CharacterScreen> {
                               if (textEditingValue.text.isEmpty) {
                                 return const Iterable<String>.empty();
                               }
+                              if (_debounce?.isActive ?? false)
+                                _debounce?.cancel();
+                              _debounce =
+                                  Timer(const Duration(milliseconds: 100), () {
+                                fetchCharacterSuggestions(
+                                    textEditingValue.text);
+                              });
                               return suggestions.where((String option) {
                                 return option.toLowerCase().contains(
                                     textEditingValue.text.toLowerCase());
@@ -127,6 +159,8 @@ class _CharacterScreenState extends State<CharacterScreen> {
                                     fieldTextEditingController,
                                 FocusNode fieldFocusNode,
                                 VoidCallback onFieldSubmitted) {
+                              _searchController.text =
+                                  fieldTextEditingController.text;
                               return TextField(
                                 controller: fieldTextEditingController,
                                 focusNode: fieldFocusNode,
