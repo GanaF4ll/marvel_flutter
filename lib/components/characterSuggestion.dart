@@ -16,7 +16,7 @@ class CharacterSuggestion extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 150,
-      height: 150,
+      height: 250,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),

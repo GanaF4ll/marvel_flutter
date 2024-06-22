@@ -93,26 +93,40 @@ class _HomeScreenState extends State<HomeScreen> {
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 250,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: characters.length,
-                      itemBuilder: (context, index) {
-                        final character = characters[index];
-                        final name = character['name'];
-                        final imageUrl =
-                            "${character['thumbnail']['path']}.${character['thumbnail']['extension']}";
-
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CharacterSuggestion(
-                            name: name,
-                            imageUrl: imageUrl,
-                            id: character['id'],
+                  Container(
+                    height: 270,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Suggestions',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
-                        );
-                      },
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: characters.length,
+                            itemBuilder: (context, index) {
+                              final character = characters[index];
+                              final name = character['name'];
+                              final imageUrl =
+                                  "${character['thumbnail']['path']}.${character['thumbnail']['extension']}";
+
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CharacterSuggestion(
+                                  name: name,
+                                  imageUrl: imageUrl,
+                                  id: character['id'],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
