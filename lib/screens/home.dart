@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import '../components/characterSuggestion.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:crypto/crypto.dart' as crypto;
 import 'dart:convert';
 import 'package:convert/convert.dart';
 import 'package:http/http.dart' as http;
+
+import '../components/characterSuggestion.dart';
+import '../components/eventSuggestion.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -165,6 +167,44 @@ class _HomeScreenState extends State<HomeScreen> {
                                   name: name,
                                   imageUrl: imageUrl,
                                   id: character['id'],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 250,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Event Suggestions',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: events.length,
+                            itemBuilder: (context, index) {
+                              final event = events[index];
+                              final name = event['name'];
+                              final imageUrl =
+                                  "${event['thumbnail']['path']}.${event['thumbnail']['extension']}";
+
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: EventSuggestion(
+                                  title: event['title'],
+                                  imageUrl: imageUrl,
+                                  id: event['id'],
+                                  description: event['description'] ??
+                                      'No description available.',
                                 ),
                               );
                             },
