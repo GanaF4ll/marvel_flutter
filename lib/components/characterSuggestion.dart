@@ -16,16 +16,22 @@ class CharacterSuggestion extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 150,
-      height: 200,
+      height: 150,
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              imageUrl,
-              width: 150,
-              height: 150,
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+              child: Image.network(
+                imageUrl,
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

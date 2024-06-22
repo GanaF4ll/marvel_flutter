@@ -20,11 +20,17 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     loadEnv().then((_) {
       fetchCharactersByIds([
-        1016181,
-        1009417,
-        1009629,
-        1009368
-      ]); // Spider-Man, Magneto, Storm, Iron Man
+        1016181, // Spider-Man
+        1009663, // Agent Venom
+        1009629, // Storm
+        1009318, // Ghost Rider
+        1009592, // Silver Surfer
+        1009417, // Magneto
+        1009187, // Black Panther
+        1009368, // Iron Man
+        1009652, // Thanos
+        1009268, // Deadpool
+      ]);
     });
   }
 
@@ -87,12 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Bienvenue sur l\'écran d\'accueil!',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  SizedBox(height: 20),
-                  Expanded(
+                  SizedBox(
+                    height: 250,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: characters.length,
