@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> characters = [];
+  List<Map<String, dynamic>> events = [];
   bool isLoading = true;
 
   @override
@@ -31,6 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
         1009652, // Thanos
         1009268, // Deadpool
       ]);
+      fetchEventsByIds([
+        227, // Age of Apocalypse
+        314, // Age of Ultron
+        229, // Annhilation
+        310, // Avengers VS X-men
+        238, // Civil War
+      ]);
     });
   }
 
@@ -38,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await dotenv.load(); // Load environment variables
   }
 
-  void fetchCharactersByIds(List<int> ids) async {
+  Future<void> fetchCharactersByIds(List<int> ids) async {
     setState(() {
       isLoading = true;
     });
@@ -62,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
         final data = json.decode(response.body);
         final results = data['data']['results'];
         allCharacters.addAll(List<Map<String, dynamic>>.from(results));
-        print(results);
+        // print(results);
       } else {
         print('Failed to load character');
       }
@@ -79,6 +87,42 @@ class _HomeScreenState extends State<HomeScreen> {
     var md5 = crypto.md5;
     var digest = md5.convert(content);
     return hex.encode(digest.bytes);
+  }
+
+  Future<void> fetchEventsByIds(List<int> ids) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    List<Map<String, dynamic>> allEvents = [];
+
+    for (var id in ids) {
+      final publicKey = dotenv.env['PUBLIC_KEY'];
+      final privateKey = dotenv.env['PRIVATE_KEY'];
+
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+
+      final hash = generateMd5('$timestamp$privateKey$publicKey');
+
+      final url = Uri.parse(
+          'https://gateway.marvel.com:443/v1/public/events/$id?ts=$timestamp&apikey=$publicKey&hash=$hash');
+
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final results = data['data']['results'];
+        allEvents.addAll(List<Map<String, dynamic>>.from(results));
+        print(results);
+      } else {
+        print('Failed to load events');
+      }
+    }
+
+    setState(() {
+      events = allEvents;
+      isLoading = false;
+    });
   }
 
   @override
@@ -98,8 +142,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Suggestions',
+                        const Text(
+                          'Character Suggestions',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
