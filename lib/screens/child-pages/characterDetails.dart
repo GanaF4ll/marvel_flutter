@@ -84,65 +84,61 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
-          : Padding(
+          : ListView(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      widget.imageUrl,
-                      width: double.infinity,
-                      height: 200,
-                      fit: BoxFit.cover,
-                    ),
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(
+                    widget.imageUrl,
+                    width: double.infinity,
+                    height: 200,
+                    fit: BoxFit.cover,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    widget.description.isNotEmpty
-                        ? widget.description
-                        : 'No description available for ${widget.name}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  widget.description.isNotEmpty
+                      ? widget.description
+                      : 'No description available for ${widget.name}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Comics:',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Comics:',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 8),
-                  comics.isNotEmpty
-                      ? Expanded(
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 0.7,
-                            ),
-                            itemCount: comics.length,
-                            itemBuilder: (context, index) {
-                              final comic = comics[index];
-                              final imageUrl =
-                                  '${comic['thumbnail']['path']}.${comic['thumbnail']['extension']}';
-                              return ComicWidget(
+                ),
+                const SizedBox(height: 8),
+                comics.isNotEmpty
+                    ? SizedBox(
+                        height: 190,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: comics.length,
+                          itemBuilder: (context, index) {
+                            final comic = comics[index];
+                            final imageUrl =
+                                '${comic['thumbnail']['path']}.${comic['thumbnail']['extension']}';
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: ComicWidget(
                                 imageUrl: imageUrl,
                                 id: comic['id'],
-                              );
-                            },
-                          ),
-                        )
-                      : Text('No comics available'),
-                ],
-              ),
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                    : Text('No comics available'),
+              ],
             ),
     );
   }

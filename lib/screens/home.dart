@@ -168,6 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   name: name,
                                   imageUrl: imageUrl,
                                   id: character['id'],
+                                  description: character['description'] ??
+                                      'No description available.',
                                 ),
                               );
                             },

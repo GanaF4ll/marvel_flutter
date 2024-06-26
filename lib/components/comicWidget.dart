@@ -17,12 +17,12 @@ class ComicWidget extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: AspectRatio(
-            aspectRatio: 1,
+            aspectRatio: 2 / 3,
             child: Image.network(
               imageUrl,
               width: double.infinity,
               height: double.infinity,
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.cover,
             ),
           ),
         ),
