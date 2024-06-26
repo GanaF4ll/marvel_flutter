@@ -35,14 +35,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.work),
+            icon: Icon(Icons.people),
             label: 'Character',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.volcano),
+            icon: Icon(Icons.menu_book),
             label: 'Comics',
           ),
           BottomNavigationBarItem(
+
             icon: Icon(Icons.add_circle),
             label: 'Extra',
           ),
