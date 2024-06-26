@@ -152,8 +152,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                                         imageUrl: imageUrl,
                                         title: title,
                                         description: description,
-                                        comicId: comic[
-                                            'id'], // Pass the comic ID here
+                                        comicId: comic['id'],
                                       ),
                                     ),
                                   );
@@ -162,7 +161,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                             },
                           ),
                         )
-                      : Text(
+                      : const Text(
                           'No comics available',
                           style: TextStyle(color: Colors.white),
                         ),
