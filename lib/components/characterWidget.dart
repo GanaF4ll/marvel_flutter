@@ -36,7 +36,7 @@ class CharacterWidget extends StatelessWidget {
         color: Colors.grey.shade900,
         child: Container(
           // taille max du composant
-          height: 120,
+          height: 128,
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [

@@ -17,7 +17,7 @@ class EventSuggestion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
+      width: 220,
       height: 250,
       child: Card(
         shape: RoundedRectangleBorder(
@@ -30,8 +30,8 @@ class EventSuggestion extends StatelessWidget {
               borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
               child: Image.network(
                 imageUrl,
-                width: 300,
-                height: 150,
+                width: 220,
+                height: 220,
                 fit: BoxFit.fill,
               ),
             ),

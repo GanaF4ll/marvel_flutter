@@ -40,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         229, // Annhilation
         310, // Avengers VS X-men
         238, // Civil War
+        330, // Civil War II
       ]);
     });
   }
@@ -147,9 +148,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Text(
                           'Character Suggestions',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         Expanded(
                           child: ListView.builder(
@@ -176,16 +177,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Container(
-                    height: 250,
+                    height: 320,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
                           'Event Suggestions',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         Expanded(
                           child: ListView.builder(
