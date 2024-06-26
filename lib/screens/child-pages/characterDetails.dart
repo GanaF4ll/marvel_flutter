@@ -1,4 +1,3 @@
-// screens/characterDetails.dart
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -85,7 +84,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
         title: Text(widget.name),
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -111,9 +110,9 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text(
+                  const Text(
                     'Comics:',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,

@@ -1,4 +1,3 @@
-// components/comicWidget.dart
 import 'package:flutter/material.dart';
 
 class ComicWidget extends StatelessWidget {
