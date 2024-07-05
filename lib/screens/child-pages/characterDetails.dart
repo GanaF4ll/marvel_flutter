@@ -83,43 +83,45 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      widget.imageUrl,
-                      width: double.infinity,
-                      height: 200,
-                      fit: BoxFit.cover,
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                        widget.imageUrl,
+                        width: double.infinity,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    widget.description.isNotEmpty
-                        ? widget.description
-                        : 'No description available for ${widget.name}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
+                    const SizedBox(height: 16),
+                    Text(
+                      widget.description.isNotEmpty
+                          ? widget.description
+                          : 'No description available for ${widget.name}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Comics:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Comics:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  comics.isNotEmpty
-                      ? Expanded(
-                          child: GridView.builder(
+                    const SizedBox(height: 8),
+                    comics.isNotEmpty
+                        ? GridView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -156,13 +158,13 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                                 },
                               );
                             },
+                          )
+                        : const Text(
+                            'No comics available',
+                            style: TextStyle(color: Colors.white),
                           ),
-                        )
-                      : const Text(
-                          'No comics available',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                ],
+                  ],
+                ),
               ),
             ),
     );

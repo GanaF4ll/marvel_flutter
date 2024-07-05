@@ -7,6 +7,7 @@ import '../components/characterWidget.dart';
 import 'dart:async';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+
 class CharacterScreen extends StatefulWidget {
   @override
   _CharacterScreenState createState() => _CharacterScreenState();
@@ -79,6 +80,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
   }
 
   void fetchCharactersByName(String name) async {
+
     final publicKey = dotenv.env['PUBLIC_KEY'];
     final privateKey = dotenv.env['PRIVATE_KEY'];
 

@@ -23,12 +23,12 @@ class ComicWidget extends StatelessWidget {
       child: Card(
         child: ClipRRect(
           child: AspectRatio(
-            aspectRatio: 1,
+            aspectRatio: 2 / 3,
             child: Image.network(
               imageUrl,
               width: double.infinity,
               height: double.infinity,
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.cover,
             ),
           ),
         ),

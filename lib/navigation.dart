@@ -44,7 +44,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
             label: 'Comics',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.extension),
+
+            icon: Icon(Icons.add_circle),
             label: 'Extra',
           ),
         ],
