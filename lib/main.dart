@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Montserrat',
         brightness: Brightness.light,
-        scaffoldBackgroundColor: Colors.blue.shade200,
+        scaffoldBackgroundColor: Colors.grey.shade900,
         primarySwatch: Colors.teal,
       ),
       home: Scaffold(

@@ -25,8 +25,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
       body: _screenList[_currentScreen],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.grey.shade900,
+        selectedItemColor: const Color(0xFFFFFFFF),
+        unselectedItemColor: const Color(0xFF676D75),
         currentIndex: _currentScreen,
         onTap: onTabTapped,
         items: const [
@@ -35,14 +36,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.work),
+            icon: Icon(Icons.people),
             label: 'Character',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.volcano),
+            icon: Icon(Icons.menu_book),
             label: 'Comics',
           ),
           BottomNavigationBarItem(
+
             icon: Icon(Icons.add_circle),
             label: 'Extra',
           ),
