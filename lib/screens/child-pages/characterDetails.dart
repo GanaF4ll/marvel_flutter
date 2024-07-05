@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart' as crypto;
+import 'package:marvel_flutter/screens/child-pages/comicsDetails.dart';
 import '../../components/comicWidget.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -13,12 +14,12 @@ class CharacterDetailScreen extends StatefulWidget {
   final int id;
 
   const CharacterDetailScreen({
-    super.key,
+    Key? key,
     required this.name,
     required this.description,
     required this.imageUrl,
     required this.id,
-  });
+  }) : super(key: key);
 
   @override
   _CharacterDetailScreenState createState() => _CharacterDetailScreenState();
@@ -54,7 +55,6 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
         setState(() {
           comics = List<Map<String, dynamic>>.from(results);
           isLoading = false;
-          print('Comics: $comics');
         });
       } else {
         setState(() {
@@ -62,7 +62,6 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
         });
       }
     } else {
-      print('Failed to load comics');
       setState(() {
         isLoading = false;
       });
@@ -83,7 +82,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
         title: Text(widget.name),
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -109,9 +108,9 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text(
+                  const Text(
                     'Comics:',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -133,14 +132,36 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                               final comic = comics[index];
                               final imageUrl =
                                   '${comic['thumbnail']['path']}.${comic['thumbnail']['extension']}';
+                              final title = comic['title'];
+                              final description = comic['description'] ??
+                                  'No description available';
+
                               return ComicWidget(
                                 imageUrl: imageUrl,
                                 id: comic['id'],
+                                title: title,
+                                description: description,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ComicDetailScreen(
+                                        imageUrl: imageUrl,
+                                        title: title,
+                                        description: description,
+                                        comicId: comic['id'],
+                                      ),
+                                    ),
+                                  );
+                                },
                               );
                             },
                           ),
                         )
-                      : Text('No comics available'),
+                      : const Text(
+                          'No comics available',
+                          style: TextStyle(color: Colors.white),
+                        ),
                 ],
               ),
             ),
