@@ -47,7 +47,7 @@ This document provides an overview of the screens included in the Marvel Flutter
 ## Extra Screen
 
 - **File:** [lib/screens/extra.dart](lib/screens/extra.dart)
-- **Description:** An additional screen for showcasing extra content or features not covered by the main screens, such as behind-the-scenes looks, interviews with creators, or trivia.
+- **Description:** An additional screen for showcasing 3D models of the most famous items in Marvel comics.
 
 ## Navigation
 
