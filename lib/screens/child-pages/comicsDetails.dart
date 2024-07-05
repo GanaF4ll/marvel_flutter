@@ -38,7 +38,7 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
     final publicKey = dotenv.env['PUBLIC_KEY'];
     final privateKey = dotenv.env['PRIVATE_KEY'];
 
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     final hash = generateMd5('$timestamp$privateKey$publicKey');
 
     final url = Uri.parse(
@@ -59,7 +59,6 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
         isLoading = false;
       });
     } else {
-      print('Failed to load character images');
       setState(() {
         isLoading = false;
       });
@@ -85,7 +84,6 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
           children: [
             Stack(
               children: [
-                // Background Image floue
                 Positioned.fill(
                   child: Image.network(
                     widget.imageUrl,
@@ -94,7 +92,6 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
                     width: double.infinity,
                   ),
                 ),
-                // Application de l'effet noir sur l'image
                 Positioned.fill(
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
@@ -103,13 +100,12 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
                     ),
                   ),
                 ),
-                // Main content
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 30),
                       Container(
                         alignment: Alignment.center,
                         child: const Text(
@@ -163,7 +159,7 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
                   ),
                   const SizedBox(height: 16),
                   isLoading
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : characterImageUrls.isNotEmpty
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,7 +192,7 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
   Widget buildCharacterCarousel() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 25.0),
-      child: Container(
+      child: SizedBox(
         height: 150,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,

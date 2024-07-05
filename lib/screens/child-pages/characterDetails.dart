@@ -55,7 +55,6 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
         setState(() {
           comics = List<Map<String, dynamic>>.from(results);
           isLoading = false;
-          print('Comics: $comics');
         });
       } else {
         setState(() {
@@ -63,7 +62,6 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
         });
       }
     } else {
-      print('Failed to load comics');
       setState(() {
         isLoading = false;
       });
