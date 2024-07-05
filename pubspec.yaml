@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.6
+  o3d: ^3.1.2
   crypto: ^3.0.3
   convert: ^3.1.1
   carousel_slider: ^4.0.0
@@ -30,3 +31,4 @@ flutter:
   # il faut mettre le .env dans les assets pour pouvoir le lire
   assets:
     - .env
+    - assets/
