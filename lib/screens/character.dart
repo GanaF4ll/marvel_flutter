@@ -190,7 +190,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                               },
                             ),
                           ),
-                          SizedBox(width: 10), // Add this line to add spacing
+                          SizedBox(width: 10),
                           Container(
                             decoration: BoxDecoration(
                               color: const Color.fromARGB(255, 3, 44, 104),

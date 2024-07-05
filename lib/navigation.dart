@@ -25,8 +25,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
       body: _screenList[_currentScreen],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.grey.shade900,
+        selectedItemColor: const Color(0xFFFFFFFF),
+        unselectedItemColor: const Color(0xFF676D75),
         currentIndex: _currentScreen,
         onTap: onTabTapped,
         items: const [

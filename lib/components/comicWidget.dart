@@ -3,19 +3,25 @@ import 'package:flutter/material.dart';
 class ComicWidget extends StatelessWidget {
   final String imageUrl;
   final int id;
+  final String title;
+  final String description;
+  final VoidCallback onTap;
 
   const ComicWidget({
-    super.key,
+    Key? key,
     required this.imageUrl,
     required this.id,
-  });
+    required this.title,
+    required this.description,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onTap,
       child: Card(
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
           child: AspectRatio(
             aspectRatio: 2 / 3,
             child: Image.network(

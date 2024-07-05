@@ -15,6 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   crypto: ^3.0.3
   convert: ^3.1.1
+  carousel_slider: ^4.0.0
   flutter_dotenv: ^5.1.0
   http: ^1.2.1
 
